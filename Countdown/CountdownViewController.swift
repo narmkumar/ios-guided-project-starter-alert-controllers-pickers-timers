@@ -55,11 +55,15 @@ class CountdownViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        countdown.duration = duration
-        countdown.delegate = self
+        countdownPicker.dataSource = self
+        countdownPicker.delegate = self
         
         countdownPicker.selectRow(1, inComponent: 0, animated: false)
         countdownPicker.selectRow(30, inComponent: 1, animated: false)
+        
+        // why do you need this?
+        countdown.duration = duration
+        countdown.delegate = self
         
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: .medium)
         
@@ -99,10 +103,6 @@ class CountdownViewController: UIViewController {
     
     private func updateViews() {
         startButton.isEnabled = true
-        
-        countdownPicker.dataSource = self
-        countdownPicker.delegate = self
-
         
         switch countdown.state {
         case .started:
